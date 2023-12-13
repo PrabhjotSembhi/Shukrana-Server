@@ -13,13 +13,34 @@ exports.connectMongoose = () => {
         .catch((e) => console.log(e));
 };
 
+
+  
+const userSchema = new mongoose.Schema({
+    userid: {
+      type: String,
+      required: true,
+      unique: true, // Assuming each user has a unique ID
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true, // Assuming each user has a unique email
+    },
+    // Other user-related fields you may want to include
+  });
+  
+
+
+
+
+
 const gratitudeNoteSchema = new mongoose.Schema({
     title: String,
-    note: {
+    content: {
         type: String,
         required: true,
     },
-    category: String,
+    uniqueId: String,
 });
 
 
@@ -31,16 +52,30 @@ const gratitudeNoteSchema = new mongoose.Schema({
   
 //   });
 
-// const userSchema = new mongoose.Schema({
-//     name: String,
-//     username:{
-//         type: String,
-//         required:true,
-//         unique: true,
-//     },
-//     password: String
-// })
+
 
 exports.GratitudeNote = mongoose.model("GratitudeNote", gratitudeNoteSchema);
 
-// exports.User = mongoose.model("User", userSchema);
+ exports.User = mongoose.model("User", userSchema);
+
+
+ const noteSchema = new mongoose.Schema({
+   
+
+    title: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    uniqueId: {
+      type: String,
+      
+    },
+    // Other note-related fields you may want to include
+  });
+  
+
+  exports.Note = mongoose.model("Note", noteSchema);
